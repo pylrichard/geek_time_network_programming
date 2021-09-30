@@ -1,0 +1,5 @@
+add_executable(tcp_buffer_client client.c)
+target_link_libraries(tcp_buffer_client libnet)
+
+add_executable(tcp_buffer_server server.c)
+target_link_libraries(tcp_buffer_server libnet)
