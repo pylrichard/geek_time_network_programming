@@ -5,7 +5,7 @@
 
 int main(int argc, char **argv) {
     if (argc != 2) {
-        error(1, 0, "usage: server <local_path>");
+        error(1, 0, "usage: unix_stream_server <local_path>");
     }
 
     int listen_fd, conn_fd;

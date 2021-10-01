@@ -5,7 +5,7 @@
 
 int main(int argc, char **argv) {
     if (argc != 2) {
-        error(1, 0, "usage: client <ip address>");
+        error(1, 0, "usage: udp_client <ip address>");
     }
     int socket_fd;
     socket_fd = socket(AF_INET, SOCK_DGRAM, 0);

@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
     struct sockaddr_in address;
 
     if (argc != 2) {
-        error(1, 0, "usage: client <ip address>");
+        error(1, 0, "usage: tcp_buffer_client <ip address>");
     }
 
     socket_fd = socket(AF_INET, SOCK_STREAM, 0);
