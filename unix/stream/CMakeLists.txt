@@ -1,0 +1,5 @@
+add_executable(unix_stream_server server.c)
+target_link_libraries(unix_stream_server libnet)
+
+add_executable(unix_stream_client client.c)
+target_link_libraries(unix_stream_client libnet)
