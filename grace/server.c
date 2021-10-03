@@ -34,11 +34,10 @@ int main() {
     signal(SIGINT, interrupt_handler);
     signal(SIGPIPE, SIG_DFL);
 
-    int conn_fd;
     struct sockaddr_in client_address;
     socklen_t client_len = sizeof(client_address);
 
-    conn_fd = accept(listen_fd, (struct sockaddr *) &client_address, &client_len);
+    int conn_fd = accept(listen_fd, (struct sockaddr *) &client_address, &client_len);
     if (conn_fd < 0) {
         error(1, errno, "accept failed");
     }

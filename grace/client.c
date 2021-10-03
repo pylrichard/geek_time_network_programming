@@ -38,11 +38,15 @@ int main(int argc, char **argv) {
         if (ret <= 0)
             error(1, errno, "select failed");
 
+        //连接套接字是否有数据可读
         if (FD_ISSET(socket_fd, &read_mask)) {
+            //将数据读入到缓冲区
             size_t num = read(socket_fd, receive_buffer, BUF_SIZE);
             if (num < 0) {
+                //如果有异常则报错退出
                 error(1, errno, "read error");
             } else if (num == 0) {
+                //如果读取到服务端发送的EOF则正常退出
                 error(1, 0, "server terminated\n");
             }
             receive_buffer[num] = 0;
@@ -50,9 +54,11 @@ int main(int argc, char **argv) {
             fputs("\n", stdout);
         }
 
+        //标准输入是否有数据可读
         if (FD_ISSET(0, &read_mask)) {
             if (fgets(send_buffer, BUF_SIZE, stdin) != NULL) {
                 if (strncmp(send_buffer, SHUTDOWN, sizeof(SHUTDOWN)) == 0) {
+                    //关闭标准输入的I/O事件感知，关闭写方向
                     FD_CLR(0, &all_reads);
                     if (shutdown(socket_fd, SHUT_WR)) {
                         error(1, errno, "shutdown failed");
@@ -66,6 +72,7 @@ int main(int argc, char **argv) {
                     exit(0);
                 } else {
                     size_t i = strlen(send_buffer);
+                    //将回车符截掉
                     if (send_buffer[i - 1] == '\n') {
                         send_buffer[i - 1] = 0;
                     }
